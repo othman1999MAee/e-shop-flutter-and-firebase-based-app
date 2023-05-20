@@ -73,11 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [
-            hexStringToColor("CB2B93"),
-            hexStringToColor("9546C4"),
-            hexStringToColor("5E61F4")
-          ],
+              colors: [hexStringToColor("15ed4f"), hexStringToColor("2ab2e8")],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter)), // LinearGradient // BoxDecoration
       child: SingleChildScrollView(
@@ -85,7 +81,6 @@ class _SignInScreenState extends State<SignInScreen> {
           padding: EdgeInsets.fromLTRB(
               20, MediaQuery.of(context).size.height * 0.2, 20, 0),
           child: Column(children: <Widget>[
-            //  logoWidget("assets/images/img3.png"),
             SizedBox(height: 30),
             reusableTextField("enter your username", Icons.person_outline,
                 false, _emailTextController),
@@ -94,17 +89,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 _passwordTextController),
             SizedBox(height: 20),
             signInSignUpButton(context, true, () {
-              FirebaseAuth.instance
-                  .signInWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text)
-                  .then((value) {
-                print("User logged in");
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
-              }).catchError((error) {
-                print("Failed to log in: $error");
-              });
+              // FirebaseAuth.instance
+              //     .signInWithEmailAndPassword(
+              //         email: _emailTextController.text,
+              //         password: _passwordTextController.text)
+              //     .then((value) {
+              //   print("User logged in");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
+              // }).catchError((error) {
+              //   print("Failed to log in: $error");
+              // });
             }),
             signUpOption()
           ]),
