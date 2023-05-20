@@ -27,11 +27,7 @@ class _MyWidgetState extends State<SignUpScreen> {
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [
-            hexStringToColor("CB2B93"),
-            hexStringToColor("9546C4"),
-            hexStringToColor("5E61F4")
-          ],
+              colors: [hexStringToColor("15ed4f"), hexStringToColor("2ab2e8")],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter)), // LinearGradient // BoxDecoration
       child: SingleChildScrollView(
@@ -51,17 +47,17 @@ class _MyWidgetState extends State<SignUpScreen> {
                 _passwordTextController),
             SizedBox(height: 20),
             signInSignUpButton(context, false, () {
-              FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text)
-                  .then((value) {
-                print("User created");
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
-              }).onError((error, stackTrace) {
-                print("error ${error.toString()}");
-              });
+              // FirebaseAuth.instance
+              //     .createUserWithEmailAndPassword(
+              //         email: _emailTextController.text,
+              //         password: _passwordTextController.text)
+              //     .then((value) {
+              // print("User created");
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
+              // }).onError((error, stackTrace) {
+              //   print("error ${error.toString()}");
+              // });
             }),
           ]),
         ),
