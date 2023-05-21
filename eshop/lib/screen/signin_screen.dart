@@ -41,17 +41,20 @@ class _SignInScreenState extends State<SignInScreen> {
                 _passwordTextController),
             SizedBox(height: 20),
             signInSignUpButton(context, true, () {
-              // FirebaseAuth.instance
-              //     .signInWithEmailAndPassword(
-              //         email: _emailTextController.text,
-              //         password: _passwordTextController.text)
-              //     .then((value) {
-              //   print("User logged in");
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home()));
-              // }).catchError((error) {
-              //   print("Failed to log in: $error");
-              // });
+              FirebaseAuth.instance
+                  .signInWithEmailAndPassword(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text)
+                  .then((value) {
+                print("User logged in");
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              }).catchError((error) {
+                print("Failed to log in: $error");
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        "Failed to log in: ${error.toString().split("Firebase:").last.trim()}")));
+              });
             }),
             signUpOption()
           ]),
