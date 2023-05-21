@@ -8,54 +8,6 @@ import '../reusable_widgets/reusable_widget.dart';
 import '../utils/color_utils.dart';
 import 'home_screen.dart';
 
-// import 'home.dart';
-
-// class Signin extends StatelessWidget {
-//   const Signin({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       // create a appbar
-//       appBar: AppBar(
-//         title: const Text("Signin"),
-//         // gradient color
-//         backgroundColor: Colors.red,
-//       ),
-//       // create a body
-//       body: Center(
-//         child: Column(
-//           children: [
-//             // create a textfield for email
-//             TextField(
-//               decoration: const InputDecoration(
-//                 hintText: "Email",
-//               ),
-//             ),
-//             // create a textfield for password
-//             TextField(
-//               decoration: const InputDecoration(
-//                 hintText: "Password",
-//               ),
-//             ),
-//             // create a button for signin
-//             // when the user click on the signin button the user will be redirected to the home page
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (context) => const Home()),
-//                 );
-//               },
-//               child: const Text("Signin"),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
   @override

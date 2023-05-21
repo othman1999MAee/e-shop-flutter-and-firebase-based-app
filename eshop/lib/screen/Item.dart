@@ -1,3 +1,5 @@
+import 'package:eshop/models/Product.dart';
+import 'package:eshop/screen/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'data.dart';
@@ -135,19 +137,33 @@ class _ItemState extends State<Item> {
                   child: Container(
                     alignment: Alignment.center,
                     height: 50,
-                    decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(40)),
-                        color: Color(0xff9db1b1)),
-                    child: Text(
-                      'Add to cart',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 27),
+                    child:
+                        //creer un bouton pour ajouter au panier avec une methode onpressed qui ajoute au panier
+                        ButtonBar(
+                      children: [
+                        IconButton(
+                          //create product
+                          onPressed: () {
+                            Product product = Product(
+                              name: products[0]['name'],
+                              price: products[0]['price'],
+                              image: products[0]['image'],
+                              color: products[0]['color'],
+                              description: products[0]['description'],
+                              store: products[0]['store'],
+                            );
+                            //add product to cart
+                            const Cart().add_to_cart(product);
+                          },
+                          icon: Icon(
+                            Icons.add_shopping_cart,
+                            color: Color.fromARGB(255, 2, 59, 88),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],

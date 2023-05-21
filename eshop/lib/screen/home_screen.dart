@@ -1,8 +1,10 @@
+import 'package:eshop/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../utils/color_utils.dart';
 import 'Item.dart';
+import 'cart_screen.dart';
 import 'data.dart';
 
 class Home extends StatefulWidget {
@@ -36,14 +38,24 @@ class _HomeState extends State<Home> {
                     Expanded(
                       child: Container(),
                     ),
-                    FaIcon(FontAwesomeIcons.search),
-                    SizedBox(
-                      width: 25,
-                    ),
-                    Image.asset(
-                      'assets/images/shopping-bag-outline.png',
-                      height: 25,
-                    ),
+
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Search()),
+                          );
+                        },
+                        icon: FaIcon(FontAwesomeIcons.search)),
+                    //create a button for shopping cart icon that take me to the shopping cart page
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Cart()),
+                          );
+                        },
+                        icon: FaIcon(FontAwesomeIcons.shoppingCart))
                   ],
                 ),
               ),
