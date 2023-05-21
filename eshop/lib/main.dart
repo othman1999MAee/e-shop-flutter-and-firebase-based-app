@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:eshop/screen/home_screen.dart';
 import 'package:eshop/screen/signin_screen.dart';
 import 'package:eshop/screen/signup_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,13 +15,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: FirebaseOptions(
-          apiKey: "AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY",
-          authDomain: "eshop-1e1e8.firebaseapp.com",
-          projectId: "eshop-1e1e8",
-          storageBucket: "eshop-1e1e8.appspot.com",
-          messagingSenderId: "1059020180980",
-          appId: "1:1059020180980:web:6b6b0b0b0b0b0b0b0b0b0b",
-          measurementId: "G-0ZQZQZQZQZQZQZQZQZQZQZ"));
+    apiKey: "AIzaSyCMrturjmrtaKSVNxsE1MgYNsIjAO47MnQ",
+    authDomain: "eshop-1e1e8.firebaseapp.com",
+    projectId: "e-shop-5bda3",
+    storageBucket: "e-shop-5bda3.appspot.com",
+    messagingSenderId: "80295093098",
+    appId: "1:80295093098:android:0b104a3739e61f5f847b13",
+  ));
 
   runApp(const MyApp());
 }
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignInScreen(),
+      home: Home(),
     );
   }
 }

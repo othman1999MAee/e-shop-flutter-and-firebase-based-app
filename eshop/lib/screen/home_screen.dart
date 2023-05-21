@@ -1,9 +1,14 @@
 import 'package:eshop/screen/search_screen.dart';
+import 'package:eshop/screen/signin_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../utils/color_utils.dart';
 import 'Item.dart';
+import 'Item1.dart';
+import 'Item2.dart';
+import 'Item3.dart';
 import 'cart_screen.dart';
 import 'data.dart';
 
@@ -47,15 +52,32 @@ class _HomeState extends State<Home> {
                           );
                         },
                         icon: FaIcon(FontAwesomeIcons.search)),
-                    //create a button for shopping cart icon that take me to the shopping cart page
+                    //if the user not sign in then take him to the sign in page else take him to the shopping cart page
                     IconButton(
-                        onPressed: () {
+                      onPressed: () {
+                        if (FirebaseAuth.instance.currentUser == null) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignInScreen()),
+                          );
+                        } else {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Cart()),
                           );
-                        },
-                        icon: FaIcon(FontAwesomeIcons.shoppingCart))
+                        }
+                      },
+                      icon: FaIcon(FontAwesomeIcons.shoppingCart),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("You have been logged out")));
+                      },
+                      icon: FaIcon(FontAwesomeIcons.signOutAlt),
+                    )
                   ],
                 ),
               ),
@@ -88,14 +110,33 @@ class _HomeState extends State<Home> {
                           childAspectRatio: 0.73),
                       itemCount: 4,
                       itemBuilder: (context, index) {
+                        //if index==0 then go to the item page
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Item(),
-                              ),
-                            );
+                            if (index == 0) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Item()),
+                              );
+                            } else if (index == 1) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Item1()),
+                              );
+                            } else if (index == 2) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Item2()),
+                              );
+                            } else if (index == 3) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Item3()),
+                              );
+                            }
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

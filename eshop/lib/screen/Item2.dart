@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'data.dart';
 
-class Item extends StatefulWidget {
+class Item2 extends StatefulWidget {
   @override
   _ItemState createState() => _ItemState();
 }
 
-class _ItemState extends State<Item> {
+class _ItemState extends State<Item2> {
   get cart => null;
 
   @override
@@ -25,7 +25,7 @@ class _ItemState extends State<Item> {
                 Container(
                   height: MediaQuery.of(context).size.height / 1.9,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 12, 127, 47),
+                    color: Color.fromARGB(255, 30, 235, 235),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(50),
                     ),
@@ -41,8 +41,7 @@ class _ItemState extends State<Item> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: CircleAvatar(
                                     radius: 75,
-                                    backgroundColor:
-                                        Color.fromARGB(255, 12, 131, 6),
+                                    backgroundColor: Colors.white,
                                   ),
                                 ),
                                 Padding(
@@ -54,7 +53,7 @@ class _ItemState extends State<Item> {
                                   ),
                                 ),
                                 Image.network(
-                                  products[0]['image'],
+                                  products[2]['image'],
                                   height: 200,
                                 )
                               ],
@@ -97,7 +96,7 @@ class _ItemState extends State<Item> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    products[0]['name'],
+                    products[2]['name'],
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 23),
                   ),
                   SizedBox(
@@ -115,7 +114,7 @@ class _ItemState extends State<Item> {
                         width: 12,
                       ),
                       Text(
-                        products[0]['description'],
+                        products[2]['description'],
                         style: TextStyle(color: Colors.black54, fontSize: 16),
                       ),
                     ]),
@@ -128,7 +127,7 @@ class _ItemState extends State<Item> {
               children: [
                 Expanded(
                   child: Text(
-                    '\$${products[0]['price']}',
+                    '\$${products[2]['price']}',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 25,

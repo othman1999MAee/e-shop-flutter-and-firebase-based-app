@@ -47,17 +47,20 @@ class _MyWidgetState extends State<SignUpScreen> {
                 _passwordTextController),
             SizedBox(height: 20),
             signInSignUpButton(context, false, () {
-              // FirebaseAuth.instance
-              //     .createUserWithEmailAndPassword(
-              //         email: _emailTextController.text,
-              //         password: _passwordTextController.text)
-              //     .then((value) {
-              // print("User created");
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home()));
-              // }).onError((error, stackTrace) {
-              //   print("error ${error.toString()}");
-              // });
+              FirebaseAuth.instance
+                  .createUserWithEmailAndPassword(
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text)
+                  .then((value) {
+                print("User created");
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              }).onError((error, stackTrace) {
+                print("error ${error.toString()}");
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                        "Failed to log in: ${error.toString().split("Firebase:").last.trim()}")));
+              });
             }),
           ]),
         ),
