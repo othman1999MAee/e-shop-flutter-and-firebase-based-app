@@ -1,42 +1,58 @@
-//empty page with a button to go to the home page
-
-import 'dart:html';
-
-import 'package:eshop/models/Product.dart';
+// cart_screen.dart
+import 'package:eshop/screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:eshop/models/Product.dart';
 
-class Cart extends StatelessWidget {
-  const Cart({Key? key}) : super(key: key);
-  //global list of products
-  static const List<Product> products = [];
+class Cart extends StatefulWidget {
+  static final List<Product> products = [];
+
+  static void addToCart(Product product) {
+    products.add(product);
+  }
+
+  @override
+  _CartState createState() => _CartState();
+}
+
+class _CartState extends State<Cart> {
+  void removeFromCart(int index) {
+    setState(() {
+      Cart.products.removeAt(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //create a product list view from the list of products
+      appBar: AppBar(
+        title: Text('Cart'),
+      ),
       body: ListView.builder(
-        itemCount: products.length,
+        itemCount: Cart.products.length,
         itemBuilder: (context, index) {
+          final product = Cart.products[index];
           return ListTile(
-            title: Text(products[index].name),
-            subtitle: Text(products[index].price.toString()),
+            title: Text(product.name),
+            subtitle: Text('\$${product.price}'),
+            trailing: IconButton(
+              icon: Icon(Icons.remove_circle),
+              color: Colors.red,
+              onPressed: () {
+                removeFromCart(index);
+              },
+            ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
         },
         child: Icon(Icons.home),
       ),
     );
-  }
-
-  //create a method add to cart
-  List<Product> add_to_cart(Product product) {
-    products.add(product);
-    // Test if the product is added to the list
-    print(products.length);
-    return products.toList();
   }
 }

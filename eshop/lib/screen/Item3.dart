@@ -1,16 +1,11 @@
+import 'package:eshop/screen/signin_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:eshop/models/Product.dart';
 import 'package:eshop/screen/cart_screen.dart';
-import 'package:flutter/material.dart';
 
-import 'data.dart';
-
-class Item3 extends StatefulWidget {
-  @override
-  _ItemState createState() => _ItemState();
-}
-
-class _ItemState extends State<Item3> {
-  get cart => null;
+class Item3 extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +20,7 @@ class _ItemState extends State<Item3> {
                 Container(
                   height: MediaQuery.of(context).size.height / 1.9,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 156, 16, 16),
+                    color: Color.fromARGB(255, 183, 59, 17),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(50),
                     ),
@@ -41,7 +36,8 @@ class _ItemState extends State<Item3> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: CircleAvatar(
                                     radius: 75,
-                                    backgroundColor: Colors.white,
+                                    backgroundColor:
+                                        Color.fromARGB(193, 201, 2, 2),
                                   ),
                                 ),
                                 Padding(
@@ -53,9 +49,9 @@ class _ItemState extends State<Item3> {
                                   ),
                                 ),
                                 Image.network(
-                                  products[3]['image'],
+                                  'assets/images/nike_air_97.png',
                                   height: 200,
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -76,8 +72,9 @@ class _ItemState extends State<Item3> {
                       height: 40,
                       width: 40,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Icon(
                         Icons.arrow_back_ios,
                         color: Color.fromARGB(255, 152, 152, 152),
@@ -96,7 +93,7 @@ class _ItemState extends State<Item3> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    products[3]['name'],
+                    'Nike Air Max 97',
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 23),
                   ),
                   SizedBox(
@@ -105,19 +102,21 @@ class _ItemState extends State<Item3> {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                    child: Row(children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black54,
-                        radius: 5,
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Text(
-                        products[3]['description'],
-                        style: TextStyle(color: Colors.black54, fontSize: 16),
-                      ),
-                    ]),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.black54,
+                          radius: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          'The Nike Air Max 97 delivers visible cushioning under every step with updated Nike Air technology. With its dual-density midsole, it flexes with your foot for comfort that lasts all day—during your run or your day-to-day hustle.',
+                          style: TextStyle(color: Colors.black54, fontSize: 16),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -127,7 +126,7 @@ class _ItemState extends State<Item3> {
               children: [
                 Expanded(
                   child: Text(
-                    '\$${products[3]['price']}',
+                    '\$120',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 25,
@@ -139,23 +138,56 @@ class _ItemState extends State<Item3> {
                   child: Container(
                     alignment: Alignment.center,
                     height: 50,
-                    child:
-                        //creer un bouton pour ajouter au panier avec une methode onpressed qui ajoute au panier
-                        ButtonBar(
+                    child: ButtonBar(
                       children: [
                         IconButton(
-                          //create product
-                          onPressed: () {
-                            Product product = Product(
-                              name: products[0]['name'],
-                              price: products[0]['price'],
-                              image: products[0]['image'],
-                              color: products[0]['color'],
-                              description: products[0]['description'],
-                              store: products[0]['store'],
-                            );
+                          onPressed: () async {
+                            final User? user = _auth.currentUser;
 
-                            cart.add(product);
+                            if (user != null && user.uid.isNotEmpty) {
+                              Product product = Product(
+                                name: 'Nike Air Max 97',
+                                price: '170',
+                                image: 'assets/images/nike_air_270.png',
+                                color: 0xFF3D82AE,
+                                description:
+                                    'The Nike Air Max 97 delivers visible cushioning under every step with updated Nike Air technology. With its dual-density midsole, it flexes with your foot for comfort that lasts all day—during your run or your day-to-day hustle.',
+                                store: 'Nike',
+                              );
+                              Cart.addToCart(product);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Cart(),
+                                ),
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text('Authentication Required'),
+                                  content: Text(
+                                      'Please log in to add items to your cart.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SignInScreen()),
+                                        );
+                                      },
+                                      child: Text('Log In'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text('Cancel'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           },
                           icon: Icon(
                             Icons.add_shopping_cart,
