@@ -1,5 +1,10 @@
 import 'package:eshop/models/product.dart';
+import 'package:eshop/screen/Item3.dart';
+import 'package:eshop/screen/item.dart';
 import 'package:flutter/material.dart';
+
+import 'Item1.dart';
+import 'Item2.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -26,7 +31,7 @@ class _SearchState extends State<Search> {
       ),
       Product(
         name: "Nike Air Max 90",
-        price: "800",
+        price: "120",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
         description: "The Nike Air Max ",
@@ -34,7 +39,7 @@ class _SearchState extends State<Search> {
       ),
       Product(
         name: "Nike Air Max 95",
-        price: "600",
+        price: "170",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
         description: "The Nike Air Max ",
@@ -42,7 +47,7 @@ class _SearchState extends State<Search> {
       ),
       Product(
         name: "Nike Air Max 97",
-        price: "500",
+        price: "170",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
         description: "The Nike Air Max ",
@@ -69,8 +74,12 @@ class _SearchState extends State<Search> {
             text = text.toLowerCase();
             setState(() {
               filteredProducts = allProducts.where((element) {
-                var elementTitle = element.name.toLowerCase();
-                return elementTitle.contains(text);
+                var elementName = element.name.toLowerCase();
+                var elementPrice = element.price.toLowerCase();
+                var elementDescription = element.description.toLowerCase();
+                return elementName.contains(text) ||
+                    elementPrice.contains(text) ||
+                    elementDescription.contains(text);
               }).toList();
             });
           },
@@ -79,8 +88,34 @@ class _SearchState extends State<Search> {
       body: ListView.builder(
         itemCount: filteredProducts.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(filteredProducts[index].name),
+          return GestureDetector(
+            onTap: () {
+              String productName = filteredProducts[index].name;
+              if (productName.contains("270")) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Item()),
+                );
+              } else if (productName.contains("90")) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Item1()),
+                );
+              } else if (productName.contains("95")) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Item2()),
+                );
+              } else if (productName.contains("97")) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Item3()),
+                );
+              }
+            },
+            child: ListTile(
+              title: Text(filteredProducts[index].name),
+            ),
           );
         },
       ),
