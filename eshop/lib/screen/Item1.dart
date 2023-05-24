@@ -4,8 +4,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:eshop/models/Product.dart';
 import 'package:eshop/screen/cart_screen.dart';
 
-class Item1 extends StatelessWidget {
+class Item1 extends StatefulWidget {
+  @override
+  _ItemState createState() => _ItemState();
+}
+
+class _ItemState extends State<Item1> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  static bool _isLiked = false;
+  static int _likes = 0;
+
+  void _toggleLike() {
+    setState(() {
+      _isLiked = !_isLiked;
+      if (_isLiked) {
+        _likes++;
+      } else {
+        _likes--;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +38,7 @@ class Item1 extends StatelessWidget {
                 Container(
                   height: MediaQuery.of(context).size.height / 1.9,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 1, 52, 147),
+                    color: Color.fromARGB(255, 6, 86, 183),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(50),
                     ),
@@ -37,7 +55,7 @@ class Item1 extends StatelessWidget {
                                   child: CircleAvatar(
                                     radius: 75,
                                     backgroundColor:
-                                        Color.fromRGBO(190, 160, 160, 0.757),
+                                        Color.fromARGB(255, 236, 227, 221),
                                   ),
                                 ),
                                 Padding(
@@ -79,6 +97,70 @@ class Item1 extends StatelessWidget {
                         Icons.arrow_back_ios,
                         color: Color.fromARGB(255, 152, 152, 152),
                       ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 40,
+                  right: 20,
+                  child: GestureDetector(
+                    onTap: () async {
+                      final User? user = _auth.currentUser;
+
+                      if (user != null && user.uid.isNotEmpty) {
+                        _toggleLike(); // Perform like action
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('Authentication Required'),
+                            content: Text('Please log in to like this item.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignInScreen()),
+                                  );
+                                },
+                                child: Text('Log In'),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text('Cancel'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        _isLiked ? Icons.favorite : Icons.favorite_border,
+                        color: _isLiked
+                            ? Color.fromARGB(255, 245, 19, 77)
+                            : Color.fromARGB(255, 152, 152, 152),
+                      ),
+                      //_likes = _likes + 1,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 80,
+                  right: 20,
+                  child: Text(
+                    '$_likes',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -148,7 +230,7 @@ class Item1 extends StatelessWidget {
                               Product product = Product(
                                 name: 'Nike Air Max 90',
                                 price: '120',
-                                image: 'assets/images/nike_air_270.png',
+                                image: 'assets/images/nike_air_90.png',
                                 color: 0xFF3D82AE,
                                 description:
                                     'The Nike Air Max 90 delivers visible cushioning under every step with updated Nike Air technology. With its dual-density midsole, it flexes with your foot for comfort that lasts all day—during your run or your day-to-day hustle.',

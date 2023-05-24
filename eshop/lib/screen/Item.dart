@@ -4,8 +4,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:eshop/models/Product.dart';
 import 'package:eshop/screen/cart_screen.dart';
 
-class Item extends StatelessWidget {
+class Item extends StatefulWidget {
+  @override
+  _ItemState createState() => _ItemState();
+}
+
+class _ItemState extends State<Item> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  static bool _isLiked = false;
+  static int _likes = 0;
+
+  void _toggleLike() {
+    setState(() {
+      _isLiked = !_isLiked;
+      if (_isLiked) {
+        _likes++;
+      } else {
+        _likes--;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +97,70 @@ class Item extends StatelessWidget {
                         Icons.arrow_back_ios,
                         color: Color.fromARGB(255, 152, 152, 152),
                       ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 40,
+                  right: 20,
+                  child: GestureDetector(
+                    onTap: () async {
+                      final User? user = _auth.currentUser;
+
+                      if (user != null && user.uid.isNotEmpty) {
+                        _toggleLike(); // Perform like action
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('Authentication Required'),
+                            content: Text('Please log in to like this item.'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignInScreen()),
+                                  );
+                                },
+                                child: Text('Log In'),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text('Cancel'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        _isLiked ? Icons.favorite : Icons.favorite_border,
+                        color: _isLiked
+                            ? Color.fromARGB(255, 245, 19, 77)
+                            : Color.fromARGB(255, 152, 152, 152),
+                      ),
+                      //_likes = _likes + 1,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 80,
+                  right: 20,
+                  child: Text(
+                    '$_likes',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
                     ),
                   ),
                 ),

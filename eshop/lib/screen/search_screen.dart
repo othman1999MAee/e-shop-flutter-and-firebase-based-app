@@ -34,7 +34,8 @@ class _SearchState extends State<Search> {
         price: "120",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
-        description: "The Nike Air Max ",
+        description:
+            "Nothing as fly, nothing as comfortable, nothing as proven. The Nike Air Max 90 stays true to its OG running roots with the iconic Waffle sole",
         store: "Nike",
       ),
       Product(
@@ -42,7 +43,8 @@ class _SearchState extends State<Search> {
         price: "170",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
-        description: "The Nike Air Max ",
+        description:
+            "Two decades ago, the Air Max 95 changed footwear with forefoot Max Air cushioning and a human anatomy-inspired design unlike any sneaker before.",
         store: "Nike",
       ),
       Product(
@@ -50,7 +52,8 @@ class _SearchState extends State<Search> {
         price: "170",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
-        description: "The Nike Air Max ",
+        description:
+            "Legend has it that the Air Max 97 was inspired by Tokyos lightning-fast transit system. Nicknamed the “silver bullet",
         store: "Nike",
       ),
     ];
