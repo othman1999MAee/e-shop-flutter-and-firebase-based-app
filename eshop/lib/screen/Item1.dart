@@ -194,7 +194,7 @@ class _ItemState extends State<Item1> {
                           width: 12,
                         ),
                         Text(
-                          'The Nike Air Max 90 delivers visible cushioning under every step with updated Nike Air technology. With its dual-density midsole, it flexes with your foot for comfort that lasts all day—during your run or your day-to-day hustle.',
+                          'The Nike Air Max 90 stays true to its OG running roots.',
                           style: TextStyle(color: Colors.black54, fontSize: 16),
                         ),
                       ],

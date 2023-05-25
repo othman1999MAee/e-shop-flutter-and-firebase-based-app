@@ -25,8 +25,7 @@ class _SearchState extends State<Search> {
         price: "150",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
-        description:
-            "The Nike Air Max 270 delivers visible cushioning under every step with updated Nike Air technology. With its dual-density midsole, it flexes with your foot for comfort that lasts all day—during your run or your day-to-day hustle.",
+        description: "The Nike Air Max 270 delivers visible cushioning under",
         store: "Nike",
       ),
       Product(
@@ -34,8 +33,7 @@ class _SearchState extends State<Search> {
         price: "120",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
-        description:
-            "Nothing as fly, nothing as comfortable, nothing as proven. The Nike Air Max 90 stays true to its OG running roots with the iconic Waffle sole",
+        description: "NThe Nike Air Max 90 stays true to its OG running roots.",
         store: "Nike",
       ),
       Product(
@@ -43,8 +41,7 @@ class _SearchState extends State<Search> {
         price: "170",
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
-        description:
-            "Two decades ago, the Air Max 95 changed footwear with forefoot Max Air cushioning and a human anatomy-inspired design unlike any sneaker before.",
+        description: "include visible Nike Air cushioning in the forefoot",
         store: "Nike",
       ),
       Product(
@@ -53,7 +50,7 @@ class _SearchState extends State<Search> {
         image: "assets/images/nike_air_270.png",
         color: 0xFF3D82AE,
         description:
-            "Legend has it that the Air Max 97 was inspired by Tokyos lightning-fast transit system. Nicknamed the “silver bullet",
+            "include visible Nike Air cushioning in the forefoot strong",
         store: "Nike",
       ),
     ];
