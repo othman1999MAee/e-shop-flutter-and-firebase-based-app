@@ -1,5 +1,5 @@
-// cart_screen.dart
 import 'package:eshop/screen/home_screen.dart';
+import 'package:eshop/screen/payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eshop/models/Product.dart';
 
@@ -21,8 +21,18 @@ class _CartState extends State<Cart> {
     });
   }
 
+  double calculateTotalAmount() {
+    double total = 0;
+    for (var product in Cart.products) {
+      total += double.parse(product.price);
+    }
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
+    double totalAmount = calculateTotalAmount();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart'),
@@ -52,6 +62,20 @@ class _CartState extends State<Cart> {
           );
         },
         child: Icon(Icons.home),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      PaymentScreen(totalAmount: totalAmount)),
+            );
+          },
+          child: Text('Proceed to Payment'),
+        ),
       ),
     );
   }
